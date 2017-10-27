@@ -45,16 +45,20 @@ class dungeon_gui():
       for y in xrange(height):
         if mm.originalMap[x][y] == mm._WALL:
           tmpText  = 'X'
+          tmpTextColor = '#FFFFFF'
           tmpColor = self.wallColor
         elif mm.originalMap[x][y] == mm._FLOOR:
           tmpText  = ' '
+          tmpTextColor = '#FFFFFF'
           tmpColor = self.floorColor
         elif mm.originalMap[x][y] == mm._ITEM:
           tmpText  = 'G'
+          tmpTextColor = '#FFFFFF'
           tmpColor = self.itemColor
         else:
           tmpText  = '@'
+          tmpTextColor = '#000000'
           tmpColor = self.playerColor
-        self.pixelHolder[x].append(Label(root,text=tmpText,fg='#FFFFFF',bg=tmpColor,width=2))
+        self.pixelHolder[x].append(Label(root,text=tmpText,fg=tmpTextColor,bg=tmpColor,width=2))
         self.pixelHolder[x][y].grid(row=y,column=x)
     root.mainloop()
