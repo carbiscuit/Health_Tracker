@@ -13,7 +13,7 @@ class Map_Manager():
   def __init__(self,width,height):
     # initialize the map manager with map size
     self.init_map(width,height)
-    self.myPlayer    = Player(xPos=4,yPos=1)
+    self.myPlayer    = Player(xPos=4,yPos=1,gold=0)
     self.width       = width
     self.height      = height
 
