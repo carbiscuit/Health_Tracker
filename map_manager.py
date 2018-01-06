@@ -69,12 +69,15 @@ class Map_Manager():
     return x >= 0 and y >= 0 and x < self.width and y < self.height
 
   def move_player(self,char):
-    # track player movement based on keypress and prevent illegal moves.
+    """ Tracks the player's movement based on keypresses and prevents illegal moves.
+        Keeps track of 'item' tiles and moves them to player inventory.
+    """
     old_x = self.myPlayer.get_x_position()
     old_y = self.myPlayer.get_y_position()
     self.myPlayer.player_movement(movement=char)
     new_x = self.myPlayer.get_x_position()
     new_y = self.myPlayer.get_y_position()
+    gold_amount = self.myPlayer.read_gold_amount()
 
     if not self._is_in_bounds(new_x,new_y):
       new_x = old_x
@@ -88,6 +91,8 @@ class Map_Manager():
       self.myPlayer.set_y_position(old_y)
     elif self._is_item(new_x,new_y):
       self.originalMap[new_x][new_y] = self._FLOOR
+      self.myPlayer.acquire_gold(random.randint(1,3))
+      print gold_amount
 
     self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
     self.currentMap[new_x][new_y] = self._PLAYER

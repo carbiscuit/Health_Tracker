@@ -25,6 +25,14 @@ class Player():
     def get_y_position(self):
         return self.yPos
 
+    def read_gold_amount(self):
+        # Reads the current amount of gold the player has.
+        return self.gold
+
+    def acquire_gold(self, gold_to_add):
+        # Adds a specified amount of gold to players inventory.
+        self.gold += gold_to_add
+
     def player_movement(self,movement):
         print 'moving player from Player'
         """Models the playable avatar's movement."""
