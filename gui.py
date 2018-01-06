@@ -69,6 +69,7 @@ class Dungeon_Gui():
       time.sleep(1./self.FPS)
 
   def render_map(self):
+    print 'in render map'
     # redraw the map based on the map_manager.currentMap values
     for x in xrange(len(self.pixelHolder)):
       for y in xrange(len(self.pixelHolder[x])):

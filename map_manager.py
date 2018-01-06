@@ -117,22 +117,27 @@ class Map_Manager():
       proj.calc_next_position()
       proj_x   = proj.get_x_position()
       proj_y   = proj.get_y_position()
-      if self._is_wall(proj_x,proj_y):
+      if not self._is_in_bounds(proj_x,proj_y):
         proj._kill()
         with self.mapsLock:
-          print 'projectile_thread has lock'
-          self.originalMap[proj_x][proj_y] = self._FLOOR
-          self.currentMap[proj_x][proj_y]  = self._FLOOR
-      elif self._is_item(proj_x,proj_y) or self._is_empty(proj_x,proj_y):
+          self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
+      else:
+        if self._is_wall(proj_x,proj_y):
+          proj._kill()
+          with self.mapsLock:
+            print 'projectile_thread has lock'
+            self.originalMap[proj_x][proj_y] = self._FLOOR
+            self.currentMap[proj_x][proj_y]  = self._FLOOR
+        elif self._is_item(proj_x,proj_y) or self._is_empty(proj_x,proj_y):
+          with self.mapsLock:
+            print 'projectile_thread has lock'
+            self.currentMap[proj_x][proj_y]  = self._PROJECTILE
         with self.mapsLock:
           print 'projectile_thread has lock'
-          self.currentMap[proj_x][proj_y]  = self._PROJECTILE
-      with self.mapsLock:
-        print 'projectile_thread has lock'
-        self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
-        self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
+          self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
+          self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
-      time.sleep(proj.get_refresh_time())
+        time.sleep(proj.get_refresh_time())
 
   def move_player(self,char):
     """ Tracks the player's movement based on keypresses and prevents illegal moves.

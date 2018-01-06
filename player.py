@@ -17,7 +17,7 @@ class Player(object):
         self.xPos    = xPos
         self.yPos    = yPos
         self.facing  = 'east'
-        self.attack  = Projectile(xPos,yPos,attack)
+        self.attack  = Projectile(xPos,yPos,attack,refresh_time=0.1)
 
     def set_x_position(self,value):
         self.xPos = value

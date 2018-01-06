@@ -15,7 +15,7 @@ class Projectile:
     elif self.facing[:] == 'south':
       self.yPos+=1
     else:
-      self.yPos+=1
+      self.yPos-=1
 
   def _is_alive(self):
     return self.alive
