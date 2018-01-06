@@ -27,9 +27,11 @@ class Map_Manager():
 
   def move_player(self,char):
     # track player movement based on keypress
-    old_x        = self.myPlayer.get_x_position()
-    old_y        = self.myPlayer.get_y_position()
-    new_x, new_y = self.myPlayer.player_movement(movement=char)
+    old_x = self.myPlayer.get_x_position()
+    old_y = self.myPlayer.get_y_position()
+    self.myPlayer.player_movement(movement=char)
+    new_x = self.myPlayer.get_x_position()
+    new_y = self.myPlayer.get_y_position()
 
     self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
-    self.currentMap[new_x][new_y] = _PLAYER
+    self.currentMap[new_x][new_y] = self._PLAYER

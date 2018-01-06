@@ -31,7 +31,7 @@ class Player():
         """elif movement == 'r':
             self.stamina += 1"""
 
-        return {'x':self.xPos,'y':self.yPos}
+        return ({'x':self.xPos,'y':self.yPos})
 
 class Enemy(Player):
     def __init__(self,health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):

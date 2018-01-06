@@ -57,7 +57,7 @@ class Dungeon_Gui():
     # to do: have things update when the user enters a button press
     if event.char in 'wasd':
       # call the player movement function
-      self.mm.move_player(char)
+      self.mm.move_player(event.char)
 
       # make sure that the mm.currentMap has been updated
       # then finally redraw the new map
