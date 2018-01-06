@@ -21,6 +21,17 @@ class Map_Manager():
     self.currentMap  = [col[:] for col in self.originalMap]
     self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
+  def weighted_number_generator(self):
+    # Returns one of the Map_Manager constants.
+    # _WALL and _FLOOR are weighted at 49%, while _ITEM is 2%.
+    val_one = random.random()
+    if val_one >= 0 and val_one < 0.49:
+      return self._WALL
+    elif val_one >= 0.49 and val_one < 0.98:
+      return self._FLOOR
+    elif val_one >= 0.98:
+      return self._ITEM
+
   def init_map(self,width=16,height=16):
     # create a map for the start of play
     self.originalMap = []
@@ -30,7 +41,7 @@ class Map_Manager():
         if x==0 or y==0 or x==width-1 or y==height-1:
           self.originalMap[x].append(self._WALL)
         else:
-          self.originalMap[x].append(random.randint(0,2))
+          self.originalMap[x].append(self.weighted_number_generator())
 
   def redraw_map(self):
     self.init_map(self.width,self.height)
