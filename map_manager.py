@@ -27,7 +27,10 @@ class Map_Manager():
     for x in xrange(width):
       self.originalMap.append([])
       for y in xrange(height):
-        self.originalMap[x].append(random.randint(0,2))
+        if x==0 or y==0 or x==width-1 or y==height-1:
+          self.originalMap[x].append(self._WALL)
+        else:
+          self.originalMap[x].append(random.randint(0,2))
 
   def _is_wall(self,x,y):
     return self.currentMap[x][y] == self._WALL
