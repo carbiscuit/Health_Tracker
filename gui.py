@@ -1,8 +1,8 @@
-from Tkinter import *
+#from Tkinter import *
 import random
-#import rouge_like
+from rougue_like import map_manager, player
 
-class map_manager():
+'''class map_manager():
   _WALL = 0
   _FLOOR = 1
   _ITEM = 2
@@ -28,6 +28,7 @@ class player():
     self.mana = mana
     self.xPos = xPos
     self.yPos = yPos
+'''
 
 class dungeon_gui():
   wallColor = ('#%02x%02x%02x'%(88,24,69))
