@@ -1,3 +1,5 @@
+import random
+
 from player import Player
 
 class Map_Manager():
@@ -10,7 +12,7 @@ class Map_Manager():
   def __init__(self,width,height):
     # initialize the map manager with map size
     self.originalMap = self.init_map(width,height)
-    self.myPlayer         = player(xPos=4,yPos=1)
+    self.myPlayer         = Player(xPos=4,yPos=1)
     self.currentMap = self.originalMap
     self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
@@ -23,5 +25,11 @@ class Map_Manager():
         self.originalMap[x].append(random.randint(0,2))
     return self.originalMap
 
-  def track_movement(self,char):
+  def move_player(self,char):
     # track player movement based on keypress
+    old_x        = self.myPlayer.get_x_position()
+    old_y        = self.myPlayer.get_y_position()
+    new_x, new_y = self.myPlayer.player_movement(movement=char)
+
+    self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
+    self.currentMap[new_x][new_y] = _PLAYER
