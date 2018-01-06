@@ -11,6 +11,12 @@ class Player():
         self.xPos = xPos
         self.yPos = yPos
 
+    def set_x_position(self,value):
+        self.xPos = value
+
+    def set_y_position(self,value):
+        self.yPos = value
+
     def get_x_position(self):
         return self.xPos
 
