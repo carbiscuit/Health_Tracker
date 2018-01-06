@@ -1,5 +1,7 @@
-from map_manager import Map_Manager
+import sys
+
 from Tkinter import *
+from map_manager import Map_Manager
 
 class Dungeon_Gui():
   # tkinter class holder to render the map
@@ -36,16 +38,20 @@ class Dungeon_Gui():
     self.down  = Button(master=self.f,text='DOWN ',command=lambda: self.key_handler(char='s'))
     self.left  = Button(master=self.f,text='LEFT ',command=lambda: self.key_handler(char='a'))
     self.right = Button(master=self.f,text='RIGHT',command=lambda: self.key_handler(char='d'))
+
+    self.quit = Button(master=self.f,text='Quit',command=self.on_exit)
     self.reset = Button(master=self.f,text='Redraw Map',command=self.scramble_map)
 
     self.up.grid(row=0,column=1)
     self.left.grid(row=1,column=0)
     self.down.grid(row=1,column=1)
     self.right.grid(row=1,column=2)
-    self.reset.grid(row=1,column=4)
+    self.quit.grid(row=0,column=4,sticky=E)
+    self.reset.grid(row=1,column=4,sticky=E)
 
     self.f.grid(columnspan=width,sticky=S)
     self.render_map()
+    self.root.protocol("WM_DELETE_WINDOW",self.on_exit)
     self.root.mainloop()
 
   def render_map(self):
@@ -69,6 +75,9 @@ class Dungeon_Gui():
           self.pixelHolder[x][y].config(fg='#000000')
           self.pixelHolder[x][y].config(bg=self.playerColor)
 
+  def on_exit(self):
+    self.root.destroy()
+    sys.exit()
 
   def scramble_map(self):
     self.mm.redraw_map()
