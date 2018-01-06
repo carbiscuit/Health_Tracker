@@ -33,20 +33,23 @@ class Map_Manager():
           self.originalMap[x].append(random.randint(0,2))
 
   def _is_wall(self,x,y):
+    """Returns a '0' for wall."""
     return self.currentMap[x][y] == self._WALL
 
-
   def _is_item(self,x,y):
+    """Returns a '2' for item."""
     return self.currentMap[x][y] == self._ITEM
 
   def _is_empty(self,x,y):
+    """Returns a '1' for floor."""
     return self.currentMap[x][y] == self._FLOOR
 
   def _is_in_bounds(self,x,y):
+    """Checks in-bound paramters."""
     return x >= 0 and y >= 0 and x < self.width and y < self.height
 
   def move_player(self,char):
-    # track player movement based on keypress
+    # track player movement based on keypress and prevent illegal moves.
     old_x = self.myPlayer.get_x_position()
     old_y = self.myPlayer.get_y_position()
     self.myPlayer.player_movement(movement=char)
