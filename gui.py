@@ -12,9 +12,13 @@ class Dungeon_Gui():
 
   def __init__(self,width=16,height=16):
     # create the root window and start the mainloop
-    root             = Tk()
+    self.root        = Tk()
     self.mm          = Map_Manager(width,height)
     self.pixelHolder = []
+    self.width       = width
+    self.height      = height
+
+    # bind all key presses to the button handler
     for x in xrange(width):
       self.pixelHolder.append([])
       for y in xrange(height):
@@ -36,12 +40,35 @@ class Dungeon_Gui():
           tmpColor = self.playerColor
         self.pixelHolder[x].append(Label(root,text=tmpText,fg=tmpTextColor,bg=tmpColor,width=2))
         self.pixelHolder[x][y].grid(row=y,column=x)
-    root.mainloop()
+    self.render_map()
+    self.root.mainloop()
 
   def render_map(self):
     # redraw the map based on the map_manager.currentMap value
-    pass
+    for x in xrange(len(pixelHolder)):
+      for y in xrange(len(pixelHolder[x])):
+        if mm.currentMap[x][y] == mm.__WALL:
+          self.pixelHolder[x][y]['text'] ='X'
+          self.pixelHolder[x][y].config(fg='#FFFFFF')
+          self.pixelHolder[x][y].config(bg=self.wallColor)
+        elif mm.currentMap[x][y] == mm.__FLOOR:
+          self.pixelHolder[x][y]['text'] =' '
+          self.pixelHolder[x][y].config(fg='#FFFFFF')
+          self.pixelHolder[x][y].config(bg=self.floorColor)
+        elif mm.currentMap[x][y] == mm.__ITEM:
+          self.pixelHolder[x][y]['text'] ='G'
+          self.pixelHolder[x][y].config(fg='#FFFFFF')
+          self.pixelHolder[x][y].config(bg=self.itemColor)
+        else:
+          self.pixelHolder[x][y]['text'] ='@'
+          self.pixelHolder[x][y].config(fg='#000000')
+          self.pixelHolder[x][y].config(bg=self.playerColor)
+    self.root.after(100,render_map)
+
+
 
   def button_handler(self,event=None):
     # to do: have things update when the user enters a button press
-    pass
+    if event.char in 'wasd':
+      # call the movement event
+      self.render_map()

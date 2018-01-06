@@ -22,3 +22,6 @@ class Map_Manager():
       for y in xrange(height):
         self.originalMap[x].append(random.randint(0,2))
     return self.originalMap
+
+  def track_movement(self,char):
+    # track player movement based on keypress
