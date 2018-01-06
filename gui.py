@@ -36,11 +36,13 @@ class Dungeon_Gui():
     self.down  = Button(master=self.f,text='DOWN ',command=lambda: self.key_handler(char='s'))
     self.left  = Button(master=self.f,text='LEFT ',command=lambda: self.key_handler(char='a'))
     self.right = Button(master=self.f,text='RIGHT',command=lambda: self.key_handler(char='d'))
+    self.reset = Button(master=self.f,text='Redraw Map',command=self.scramble_map)
 
     self.up.grid(row=0,column=1)
     self.left.grid(row=1,column=0)
     self.down.grid(row=1,column=1)
     self.right.grid(row=1,column=2)
+    self.reset.grid(row=1,column=4)
 
     self.f.grid(columnspan=width,sticky=S)
     self.render_map()
@@ -68,6 +70,9 @@ class Dungeon_Gui():
           self.pixelHolder[x][y].config(bg=self.playerColor)
 
 
+  def scramble_map(self):
+    self.mm.redraw_map()
+    self.render_map()
 
   def key_handler(self,event=None,char=None):
     # to do: have things update when the user enters a button press
