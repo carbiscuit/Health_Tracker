@@ -18,16 +18,17 @@ class Player():
         return self.yPos
 
     def player_movement(self,movement):
+        print 'moving player from Player'
         """Models the playable avatar's movement."""
         #movement = input()
         if movement == 'w':
-            self.yPos + 1
+            self.yPos -= 1
         elif movement == 'a':
-            self.xPos - 1
+            self.xPos -= 1
         elif movement == 's':
-            self.yPos - 1
+            self.yPos += 1
         elif movement == 'd':
-            self.xPos + 1
+            self.xPos += 1
         """elif movement == 'r':
             self.stamina += 1"""
 
@@ -42,13 +43,13 @@ class Enemy(Player):
         """Models the playable avatar's movement."""
         #movement = input()
         if movement == 'w':
-            self.yPos + 1
+            self.yPos -= 1
         elif movement == 'a':
-            self.xPos - 2
+            self.xPos -= 2
         elif movement == 's':
-            self.yPos - 1
+            self.yPos += 1
         elif movement == 'd':
-            self.xPos + 2
+            self.xPos += 2
         """elif movement == 'r':
             self.stamina += 1"""
 
@@ -63,13 +64,13 @@ class Knight(Player):
         """Models the playable avatar's movement."""
         #movement = input()
         if movement == 'w':
-            self.yPos + 2
+            self.yPos -= 2
         elif movement == 'a':
-            self.xPos - 1
+            self.xPos -= 1
         elif movement == 's':
-            self.yPos - 2
+            self.yPos += 2
         elif movement == 'd':
-            self.xPos + 1
+            self.xPos += 1
         """elif movement == 'r':
             self.stamina += 1"""
 

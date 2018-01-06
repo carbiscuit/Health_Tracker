@@ -16,8 +16,13 @@ class Dungeon_Gui():
     self.width       = width
     self.height      = height
 
+    self.f           = Frame(self.root)
+
     # bind all key presses to the button handler
-    self.root.bind("<Key>",self.key_handler)
+    self.root.bind("w",self.key_handler)
+    self.root.bind("a",self.key_handler)
+    self.root.bind("s",self.key_handler)
+    self.root.bind("d",self.key_handler)
 
     # render based on the original map
     for x in xrange(width):
@@ -26,6 +31,18 @@ class Dungeon_Gui():
         self.pixelHolder[x].append(Label(self.root,text='',width=2))
         self.pixelHolder[x][y].grid(row=y,column=x)
 
+    # create buttons
+    self.up    = Button(master=self.f,text=' UP  ',command=lambda: self.key_handler(char='w'))
+    self.down  = Button(master=self.f,text='DOWN ',command=lambda: self.key_handler(char='s'))
+    self.left  = Button(master=self.f,text='LEFT ',command=lambda: self.key_handler(char='a'))
+    self.right = Button(master=self.f,text='RIGHT',command=lambda: self.key_handler(char='d'))
+
+    self.up.grid(row=0,column=1)
+    self.left.grid(row=1,column=0)
+    self.down.grid(row=1,column=1)
+    self.right.grid(row=1,column=2)
+
+    self.f.grid(columnspan=width,sticky=S)
     self.render_map()
     self.root.mainloop()
 
@@ -49,16 +66,19 @@ class Dungeon_Gui():
           self.pixelHolder[x][y]['text'] ='@'
           self.pixelHolder[x][y].config(fg='#000000')
           self.pixelHolder[x][y].config(bg=self.playerColor)
-    self.root.after(100,self.render_map)
 
 
 
-  def key_handler(self,event=None):
+  def key_handler(self,event=None,char=None):
     # to do: have things update when the user enters a button press
-    if event.char in 'wasd':
+    print 'in key_handler'
+    print 'event: ', event
+    print 'char:  ', char
+    if event is not None and event.char in 'wasd':
+      print event.char
       # call the player movement function
       self.mm.move_player(event.char)
-
-      # make sure that the mm.currentMap has been updated
-      # then finally redraw the new map
-      self.render_map()
+    if char is not None and char in 'wasd':
+      print char
+      self.mm.move_player(char)
+    self.render_map()
