@@ -14,6 +14,7 @@ class Map_Manager():
     # initialize the map manager with map size
     self.init_map(width,height)
     self.myPlayer    = Player(xPos=4,yPos=1)
+    self.originalMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._FLOOR
     self.currentMap  = [[cell for cell in col] for col in self.originalMap]
     self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
@@ -25,6 +26,15 @@ class Map_Manager():
       for y in xrange(height):
         self.originalMap[x].append(random.randint(0,2))
 
+  def _is_wall(self,x,y):
+    return self.currentMap[x][y] == self._WALL
+
+
+  def _is_item(self,x,y):
+    return self.currentMap[x][y] == self._ITEM
+
+  def _is_empty(self,x,y):
+    return self.currentMap[x][y] == self._FLOOR
 
   def move_player(self,char):
     # track player movement based on keypress
@@ -33,6 +43,14 @@ class Map_Manager():
     self.myPlayer.player_movement(movement=char)
     new_x = self.myPlayer.get_x_position()
     new_y = self.myPlayer.get_y_position()
-    print 'old value: ',self.originalMap[old_x][old_y]
+
+    if self._is_wall(new_x,new_y):
+      new_x = old_x
+      new_y = old_y
+      self.myPlayer.set_x_position(old_x)
+      self.myPlayer.set_y_position(old_y)
+    elif self._is_item(new_x,new_y):
+      self.originalMap[new_x][new_y] = self._FLOOR
+
     self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
     self.currentMap[new_x][new_y] = self._PLAYER
