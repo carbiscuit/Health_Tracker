@@ -21,15 +21,15 @@ class Map_Manager():
     self.currentMap  = [col[:] for col in self.originalMap]
     self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
-  def weighted_number_generator(self):
-    # Returns one of the Map_Manager constants.
-    # _WALL and _FLOOR are weighted at 49%, while _ITEM is 2%.
+  def weighted_map_number_generator(self):
+    # Returns one of the Map_Manager pre-defined constants.
+    # _WALL weight = 0.33, _FLOOR weight = ~0.645, _ITEM weight = ~0.025
     val_one = random.random()
-    if val_one >= 0 and val_one < 0.49:
+    if val_one >= 0 and val_one < 0.33:
       return self._WALL
-    elif val_one >= 0.49 and val_one < 0.98:
+    elif val_one >= 0.33 and val_one < 0.975:
       return self._FLOOR
-    elif val_one >= 0.98:
+    elif val_one >= 0.975:
       return self._ITEM
 
   def init_map(self,width=16,height=16):
@@ -41,7 +41,7 @@ class Map_Manager():
         if x==0 or y==0 or x==width-1 or y==height-1:
           self.originalMap[x].append(self._WALL)
         else:
-          self.originalMap[x].append(self.weighted_number_generator())
+          self.originalMap[x].append(self.weighted_map_number_generator())
 
   def redraw_map(self):
     self.init_map(self.width,self.height)
@@ -81,14 +81,12 @@ class Map_Manager():
 
   def move_player(self,char):
     """ Tracks the player's movement based on keypresses and prevents illegal moves.
-        Keeps track of 'item' tiles and moves them to player inventory.
-    """
+        Keeps track of 'item' tiles and moves them to player inventory."""
     old_x = self.myPlayer.get_x_position()
     old_y = self.myPlayer.get_y_position()
     self.myPlayer.player_movement(movement=char)
     new_x = self.myPlayer.get_x_position()
     new_y = self.myPlayer.get_y_position()
-    gold_amount = self.myPlayer.read_gold_amount()
 
     if not self._is_in_bounds(new_x,new_y):
       new_x = old_x
@@ -102,7 +100,10 @@ class Map_Manager():
       self.myPlayer.set_y_position(old_y)
     elif self._is_item(new_x,new_y):
       self.originalMap[new_x][new_y] = self._FLOOR
-      self.myPlayer.acquire_gold(random.randint(1,3))
+
+      # Tracking gold acquired done here.
+      self.myPlayer.acquire_gold(random.randint(1,2))
+      gold_amount = self.myPlayer.read_gold_amount()
       print gold_amount
 
     self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
