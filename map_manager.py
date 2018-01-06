@@ -14,7 +14,7 @@ class Map_Manager():
     # initialize the map manager with map size
     self.init_map(width,height)
     self.myPlayer    = Player(xPos=4,yPos=1)
-    self.currentMap  = [[cell for cell in col] for col in self.originalMap]
+    self.currentMap  = [col[:] for col in self.originalMap]
     self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
 
   def init_map(self,width=16,height=16):
