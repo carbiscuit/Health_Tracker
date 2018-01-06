@@ -13,14 +13,17 @@ class Player():
 
     def player_movement(self):
         """Models the playable avatar's movement."""
-            movement = input()
-            if movement == 'w':
-                self.yPos + 1
-            elif movement == 'a':
-                self.xPos - 1
-            elif movement == 's':
-                self.yPos - 1
-            elif movement == 'd':
-                self.xPos + 1
-            """elif movement == 'r':
-                self.stamina += 1"""
+        movement = input()
+        if movement == 'w':
+            self.yPos + 1
+        elif movement == 'a':
+            self.xPos - 1
+        elif movement == 's':
+            self.yPos - 1
+        elif movement == 'd':
+            self.xPos + 1
+        """elif movement == 'r':
+            self.stamina += 1"""
+
+        return {'x':self.xPos,'y':self.yPos}
+
