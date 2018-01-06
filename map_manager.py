@@ -32,17 +32,37 @@ class Map_Manager():
         else:
           self.originalMap[x].append(random.randint(0,2))
 
+  def redraw_map(self):
+    self.init_map(self.width,self.height)
+    self.originalMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._FLOOR
+    self.currentMap  = [col[:] for col in self.originalMap]
+    self.currentMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._PLAYER
+    
   def _is_wall(self,x,y):
-    """Returns a '0' for wall."""
     return self.currentMap[x][y] == self._WALL
 
   def _is_item(self,x,y):
-    """Returns a '2' for item."""
     return self.currentMap[x][y] == self._ITEM
 
   def _is_empty(self,x,y):
-    """Returns a '1' for floor."""
     return self.currentMap[x][y] == self._FLOOR
+
+    if self._is_in_bounds(x,y):
+      return self.currentMap[x][y] == self._WALL
+    else:
+      return True
+
+  def _is_item(self,x,y):
+    if self._is_in_bounds(x,y):
+      return self.currentMap[x][y] == self._ITEM
+    else:
+      return False
+
+  def _is_empty(self,x,y):
+    if self._is_in_bound(x,y):
+      return self.currentMap[x][y] == self._FLOOR
+    else:
+      return False
 
   def _is_in_bounds(self,x,y):
     """Checks in-bound paramters."""
