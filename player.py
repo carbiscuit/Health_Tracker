@@ -25,7 +25,7 @@ class Player():
     def get_y_position(self):
         return self.yPos
 
-    def read_gold_amount(self):
+    def get_gold_amount(self):
         # Reads the current amount of gold the player has.
         return self.gold
 

@@ -103,7 +103,7 @@ class Map_Manager():
 
       # Tracking gold acquired done here.
       self.myPlayer.acquire_gold(random.randint(1,2))
-      gold_amount = self.myPlayer.read_gold_amount()
+      gold_amount = self.myPlayer.get_gold_amount()
       print gold_amount
 
     self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
