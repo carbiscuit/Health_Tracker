@@ -2,10 +2,12 @@
 class Player():
     """Models the attributes of the playable avatar."""
 
-    def __init__(self, health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):
+    def __init__(self, health=5, stamina=5, gold=0,
+                attack=1, defense=0, xPos=0, yPos=0):
         """Initialize player avatar attributes."""
         self.health = health
         self.stamina = stamina
+        self.gold = gold
         self.attack = attack
         self.defense = defense
         self.xPos = xPos
