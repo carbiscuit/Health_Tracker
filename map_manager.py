@@ -14,6 +14,8 @@ class Map_Manager():
     # initialize the map manager with map size
     self.init_map(width,height)
     self.myPlayer    = Player(xPos=4,yPos=1)
+    self.width       = width
+    self.height      = height
 
     self.originalMap[self.myPlayer.xPos][self.myPlayer.yPos] = self._FLOOR
     self.currentMap  = [col[:] for col in self.originalMap]
@@ -37,6 +39,9 @@ class Map_Manager():
   def _is_empty(self,x,y):
     return self.currentMap[x][y] == self._FLOOR
 
+  def _is_in_bounds(self,x,y):
+    return x >= 0 and y >= 0 and x < self.width and y < self.height
+
   def move_player(self,char):
     # track player movement based on keypress
     old_x = self.myPlayer.get_x_position()
@@ -45,7 +50,12 @@ class Map_Manager():
     new_x = self.myPlayer.get_x_position()
     new_y = self.myPlayer.get_y_position()
 
-    if self._is_wall(new_x,new_y):
+    if not self._is_in_bounds(new_x,new_y):
+      new_x = old_x
+      new_y = old_y
+      self.myPlayer.set_x_position(old_x)
+      self.myPlayer.set_y_position(old_y)
+    elif self._is_wall(new_x,new_y):
       new_x = old_x
       new_y = old_y
       self.myPlayer.set_x_position(old_x)
