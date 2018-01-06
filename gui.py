@@ -84,7 +84,6 @@ class Dungeon_Gui():
           self.pixelHolder[x][y]['text'] ='G'
           self.pixelHolder[x][y].config(fg='#FFFFFF')
           self.pixelHolder[x][y].config(bg=self.itemColor)
-        elif self.mm.currentMap[x][y] == self.mm._PLAYER:
         elif self.mm.get_pixel(x,y) == self.mm._PROJECTILE:
           self.pixelHolder[x][y]['text'] =''
           self.pixelHolder[x][y].config(fg='#FFFFFF')
