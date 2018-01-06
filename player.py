@@ -1,5 +1,6 @@
+import random
 
-class Player():
+class Player(object):
     """Models the attributes of the playable avatar."""
 
     def __init__(self, health=5, stamina=5, gold=0,
@@ -50,44 +51,22 @@ class Player():
 
         return ({'x':self.xPos,'y':self.yPos})
 
-class Enemy(Player):
+class Enemy_One(Player):
     def __init__(self,health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):
-        super.__init__(self,health=5, stamina=5, 
-            attack=1, defense=0, xPos=0, yPos=0)
+        super(Enemy_One, self).__init__(health=3, stamina=5, 
+            attack=1, defense=0, xPos=8, yPos=8)
 
-    def player_movement(self,movement):
-        """Models the playable avatar's movement."""
-        #movement = input()
-        if movement == 'w':
-            self.yPos -= 1
-        elif movement == 'a':
-            self.xPos -= 2
-        elif movement == 's':
-            self.yPos += 1
-        elif movement == 'd':
-            self.xPos += 2
-        """elif movement == 'r':
-            self.stamina += 1"""
-
-        return {'x':self.xPos,'y':self.yPos}
-
-class Knight(Player):
-    def __init__(self,health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):
-        super.__init__(self,health=5, stamina=5, 
-            attack=1, defense=0, xPos=0, yPos=0)
-
-    def player_movement(self,movement):
-        """Models the playable avatar's movement."""
-        #movement = input()
-        if movement == 'w':
-            self.yPos -= 2
-        elif movement == 'a':
-            self.xPos -= 1
-        elif movement == 's':
-            self.yPos += 2
-        elif movement == 'd':
-            self.xPos += 1
-        """elif movement == 'r':
-            self.stamina += 1"""
+    def player_movement(self, movement):
+        print 'moving enemy_one from Enemy_One'
+        random_enemy_one_int = random.randint(1,4)
+        if movement == 'w' or 'a' or 's' or 'd':
+            if random_enemy_one_int == 1:
+                self.xPos += 1
+            elif random_enemy_one_int == 2:
+                self.xPos -= 1
+            elif random_enemy_one_int == 3:
+                self.yPos += 1
+            elif random_enemy_one_int == 4:
+                self.yPos -= 1
 
         return {'x':self.xPos,'y':self.yPos}

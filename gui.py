@@ -9,6 +9,7 @@ class Dungeon_Gui():
   floorColor = ('#%02x%02x%02x'%(199,0,57))
   itemColor = ('#%02x%02x%02x'%(255,195,0))
   playerColor = ('#%02x%02x%02x'%(218,247,166))
+  enenyOneColor = ('#%02x%02x%02x'%(142,247,12))
 
   def __init__(self,width=16,height=16):
     # create the root window and start the mainloop
@@ -70,10 +71,14 @@ class Dungeon_Gui():
           self.pixelHolder[x][y]['text'] ='G'
           self.pixelHolder[x][y].config(fg='#FFFFFF')
           self.pixelHolder[x][y].config(bg=self.itemColor)
-        else:
+        elif self.mm.currentMap[x][y] == self.mm._PLAYER:
           self.pixelHolder[x][y]['text'] ='@'
           self.pixelHolder[x][y].config(fg='#000000')
           self.pixelHolder[x][y].config(bg=self.playerColor)
+        elif self.mm.currentMap[x][y] == self.mm._ENEMY:
+          self.pixelHolder[x][y]['text'] ='V'
+          self.pixelHolder[x][y].config(fg='#BBCCAA')
+          self.pixelHolder[x][y].config(bg=self.enenyOneColor)
 
   def on_exit(self):
     self.root.destroy()
@@ -92,7 +97,9 @@ class Dungeon_Gui():
       print event.char
       # call the player movement function
       self.mm.move_player(event.char)
+      self.mm.move_enemy_one(event.char)
     if char is not None and char in 'wasd':
       print char
       self.mm.move_player(char)
+      self.mm.move_enemy_one(char)
     self.render_map()
