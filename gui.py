@@ -34,10 +34,8 @@ class dungeon_gui():
   floorColor = ('#%02x%02x%02x'%(199,0,57))
   itemColor = ('#%02x%02x%02x'%(255,195,0))
   playerColor = ('#%02x%02x%02x'%(218,247,166))
-  def __init__(self):
+  def __init__(self,width=16,height=16):
     root = Tk()
-    width = 16
-    height = 16
     mm   = map_manager(width,height)
     self.pixelHolder = []
     for x in xrange(width):
