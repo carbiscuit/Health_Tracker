@@ -35,6 +35,9 @@ class Projectile:
   def get_facing(self):
     return self.facing
 
+  def get_attack(self):
+    return self.damage
+
   def set_x_position(self, value):
     self.xPos = value
 

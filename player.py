@@ -9,15 +9,24 @@ class Player(object):
     def __init__(self, health=5, stamina=5, gold=0,
                 attack=1, defense=0, xPos=0, yPos=0):
         """Initialize player avatar attributes."""
-        self.health  = health
-        self.stamina = stamina
-        self.gold    = gold
-        self.attack  = attack
-        self.defense = defense
-        self.xPos    = xPos
-        self.yPos    = yPos
-        self.facing  = 'east'
-        self.attack  = Projectile(xPos,yPos,attack,refresh_time=0.1)
+        self.health      = health
+        self.max_health  = health
+        self.stamina     = stamina
+        self.max_stamina = stamina
+        self.gold        = gold
+        self.attack      = attack
+        self.defense     = defense
+        self.xPos        = xPos
+        self.yPos        = yPos
+        self.facing      = 'east'
+        self.alive       = True
+        self.attack      = Projectile(xPos,yPos,attack,refresh_time=0.1)
+
+    def _is_alive(self):
+        return self.alive
+
+    def _kill(self):
+        self.alive = False
 
     def set_x_position(self,value):
         self.xPos = value
@@ -27,6 +36,33 @@ class Player(object):
 
     def set_facing(self,value):
         self.facing = value
+
+    def set_health(self,value):
+        self.health = value
+
+    def set_max_health(self,value):
+        self.max_health = value
+
+    def get_health(self):
+        return self.health
+
+    def get_max_health(self):
+        return self.max_health
+
+    def set_stam(self,value):
+        self.stamina = value
+
+    def set_max_stam(self,value):
+        self.max_stamina = value
+
+    def get_attack(self):
+        return self.attack
+
+    def get_stam(self):
+        return self.stamina
+
+    def get_max_stam(self):
+        return self.max_stamina
 
     def get_x_position(self):
         return self.xPos
@@ -44,6 +80,11 @@ class Player(object):
     def acquire_gold(self, gold_to_add):
         # Adds a specified amount of gold to players inventory.
         self.gold += gold_to_add
+
+    def decrease_health(self,value):
+        self.health -= value
+        if self.health <= 0:
+            self._kill()
 
     def shoot_projectile(self):
         new_proj = copy.copy(self.attack)
@@ -76,8 +117,17 @@ class Player(object):
 
 class Enemy_One(Player):
     def __init__(self,health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):
-        super(Enemy_One, self).__init__(health=3, stamina=5, 
-            attack=1, defense=0, xPos=8, yPos=8)
+        super(Enemy_One, self).__init__(health=health, stamina=stamina, 
+            attack=attack, defense=defense, xPos=xPos, yPos=yPos)
+        self.attack = attack # we don't want the enemy to have projectile, but it 
+                             # needs some integer attack value, so overright the old
+                             # projectile that the super init creates
+    def decrease_health(self,value):
+            self.health -= value
+            if self.health <= 0:
+                self._kill()
+            print 'enemy health: ',self.get_health()
+            print 'killed:       ',not self._is_alive()
 
     def player_movement(self, movement):
         print 'moving enemy_one from Enemy_One'
