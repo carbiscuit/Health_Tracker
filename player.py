@@ -143,3 +143,36 @@ class Enemy_One(Player):
                 self.yPos -= 1
 
         return {'x':self.xPos,'y':self.yPos}
+
+"""class Enemy_Two(Player):
+    def __init__(self,health=5, stamina=5, attack=1, defense=0, xPos=0, yPos=0):
+        super(Enemy_One, self).__init__(health=health, stamina=stamina, 
+            attack=attack, defense=defense, xPos=xPos, yPos=yPos)
+        self.attack = attack # we don't want the enemy to have projectile, but it 
+                             # needs some integer attack value, so overright the old
+                             # projectile that the super init creates
+
+    def decrease_health(self,value):
+                self.health -= value
+                if self.health <= 0:
+                    self._kill()
+                print 'enemy health: ',self.get_health()
+                print 'killed:       ',not self._is_alive()
+
+    def player_movement(self, movement):
+        print 'moving enemy_two from Enemy_Two'
+        if movement == 'w' or 'a' or 's' or 'd':
+            if Player.xPos > self.xPos and Player.yPos > self.yPos:
+                self.xPos += 1
+                self.yPos += 1
+            elif Player.xPos < self.xPos and Player.yPos < self.yPos:
+                self.xPos -= 1
+                self.yPos -= 1
+            elif Player.xPos > self.xPos and Player.yPos < self.yPos:
+                self.xPos += 1
+                self.yPos -= 1
+            elif Player.xPos < self.xPos and Player.yPos > self.yPos:
+                self.xPos -= 1
+                self.yPos += 1
+
+        return {'x':self.xPos,'y':self.yPos}"""

@@ -226,3 +226,34 @@ class Map_Manager():
       if (self.enemy_one.get_x_position() == self.myPlayer.get_x_position() and 
           self.enemy_one.get_y_position() == self.myPlayer.get_y_position() ):
         self.myPlayer.decrease_health(self.enemy_one.get_attack())
+
+  """def move_enemy_one(self,char):
+    if self.enemy_one._is_alive():
+      old_x = self.enemy_one.get_x_position()
+      old_y = self.enemy_one.get_y_position()
+      self.enemy_one.player_movement(movement=char)
+      new_x = self.enemy_one.get_x_position()
+      new_y = self.enemy_one.get_y_position()
+
+      if not self._is_in_bounds(new_x,new_y):
+        new_x = old_x
+        new_y = old_y
+        self.enemy_one.set_x_position(old_x)
+        self.enemy_one.set_y_position(old_y)
+      elif self._is_wall(new_x,new_y):
+        new_x = old_x
+        new_y = old_y
+        self.enemy_one.set_x_position(old_x)
+        self.enemy_one.set_y_position(old_y)
+      with self.mapsLock:
+        print 'move enemy has lock'
+        self.currentMap[old_x][old_y] = self.originalMap[old_x][old_y]
+        self.currentMap[new_x][new_y] = self._ENEMY
+        # redraw the player in case you moved away from where they are moving
+        play_x = self.myPlayer.get_x_position()
+        play_y = self.myPlayer.get_y_position()
+        self.currentMap[play_x][play_y] = self._PLAYER
+
+      if (self.enemy_one.get_x_position() == self.myPlayer.get_x_position() and 
+          self.enemy_one.get_y_position() == self.myPlayer.get_y_position() ):
+        self.myPlayer.decrease_health(self.enemy_one.get_attack())"""
